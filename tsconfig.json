@@ -9,6 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./dist",
+    "types": ["vitest/globals"]
   },
   "exclude": [
     "node_modules",
