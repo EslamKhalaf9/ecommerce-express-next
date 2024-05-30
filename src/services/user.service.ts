@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 import prisma from '../utils/db';
+import { error } from 'console';
+import { errors } from '../utils/errors';
 
 export async function getAllUsers(): Promise<User[]> {
   const users = await prisma.user.findMany();
@@ -32,9 +34,8 @@ async function getUserByEmail(email: string): Promise < User | null > {
 }
 
 export async function createUser(data: CreateUserDTO): Promise<User> {
-  try {
     if (await getUserByEmail(data.email)) {
-      throw new Error('User already exists');
+      throw new Error(errors.user.alreadyExists.code);
     }
 
     const user = await prisma.user.create({
@@ -44,18 +45,11 @@ export async function createUser(data: CreateUserDTO): Promise<User> {
         password:   await bcrypt.hash(data.password, 10)
       },
     });
-    
+
     if (!user) {
-      throw new Error('User not created');
+      throw new Error(errors.user.notCreated.code);
     }
     return user;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('An error occurred');
-    }
-  }
 }
 
 export async function updateUser(id: string, name: string, email: string): Promise<User> {
