@@ -9,10 +9,6 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./dist",
-    "paths": {
-      "@/*": ["./src/*"],
-      "$/*": ["./*"]
-    }
   },
   "exclude": [
     "node_modules",
