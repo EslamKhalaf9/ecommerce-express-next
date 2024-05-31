@@ -11,11 +11,15 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       return next(new Error(errors.auth.invalidCredentials.code));
     }
     
-    console.log("=====");
-    console.log(req.session);
     req.session.user = user;
     res.json(user);
   } catch (error) {
     next(error);
   }
+}
+
+export const logout = async (req: Request, res: Response) => {
+  req.session.destroy(() => {
+    res.json({ success: true });
+  });
 }

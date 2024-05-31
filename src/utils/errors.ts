@@ -35,6 +35,11 @@ export const errors: Errors = {
       message: 'Invalid credentials',
       status: 401,
       code: 'auth/invalid-credentials'
+    },
+    unauthorized: {
+      message: 'Unauthorized',
+      status: 401,
+      code: 'auth/unauthorized'
     }
   }
 };

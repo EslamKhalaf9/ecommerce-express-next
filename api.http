@@ -7,10 +7,24 @@ POST http://localhost:3000/api/user
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "johndoe2@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "username": "johndoe",
+  "email": "johndoe@mail.com",
   "password": "123456"
 }
+
+### Login User
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+  "email": "johndoe@mail.com",
+  "password": "123456"
+}
+
+### Logout User
+POST http://localhost:3000/api/auth/logout
 
 ### Get User
 GET http://localhost:3000/api/user/clwtg52x20000dheqwt0gv7ib

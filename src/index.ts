@@ -27,6 +27,7 @@ app.use('/api', router);
 
 // Error handling middleware
 app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(error);
   const errorObj = getErrorByCode(error.message);
   res.status(errorObj.status).json({
     success: false,
