@@ -14,8 +14,21 @@ export async function getUserById(req: Request, res: Response) {
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const { name, email, password } = req.body;
-    const user = await userService.createUser({ name, email, password });
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+    } = req.body;
+
+    const user = await userService.createUser({
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+    });
     return res.json(user);
   } catch (error) {
     next(error);
@@ -24,8 +37,21 @@ export async function createUser(req: Request, res: Response, next: NextFunction
 
 export async function updateUser(req: Request, res: Response) {
   const { id } = req.params;
-  const { name, email } = req.body;
-  const user = await userService.updateUser(id, name, email);
+  const {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+  } = req.body;
+  
+  const user = await userService.updateUser(id, {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+  });
   return res.json(user);
 }
 

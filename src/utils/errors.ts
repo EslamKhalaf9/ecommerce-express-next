@@ -29,6 +29,13 @@ export const errors: Errors = {
       status: 500,
       code: 'user/not-created'
     }
+  },
+  auth: {
+    invalidCredentials: {
+      message: 'Invalid credentials',
+      status: 401,
+      code: 'auth/invalid-credentials'
+    }
   }
 };
 

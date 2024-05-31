@@ -1,9 +1,27 @@
 import express from 'express';
+import session from 'express-session';
 import router from './routes';
 import { getErrorByCode } from './utils/errors';
+import { randomUUID } from 'crypto';
+import { User } from '@prisma/client';
 
 const app = express();
 app.use(express.json());
+
+app.use(session({
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  },
+  secret: process.env.SESSION_SECRET!,
+  resave: true,
+  saveUninitialized: false,
+  genid: () => {
+    return randomUUID();
+  },
+}));
 
 app.use('/api', router);
 
@@ -11,11 +29,11 @@ app.use('/api', router);
 app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   const errorObj = getErrorByCode(error.message);
   res.status(errorObj.status).json({
-      success: false,
-      status: errorObj.status,
-      message: errorObj.message,
-      code: errorObj.code,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : {}
+    success: false,
+    status: errorObj.status,
+    message: errorObj.message,
+    code: errorObj.code,
+    stack: process.env.NODE_ENV === 'development' ? error.stack : {}
   })
 });
 
