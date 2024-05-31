@@ -3,7 +3,6 @@ import session from 'express-session';
 import router from './routes';
 import { getErrorByCode } from './utils/errors';
 import { randomUUID } from 'crypto';
-import { User } from '@prisma/client';
 
 const app = express();
 app.use(express.json());

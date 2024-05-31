@@ -1,19 +1,23 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import * as userService from '../services/user.service';
+import { errors } from '../utils/errors';
 
-export async function getAllUsers(req: Request, res: Response) {
+export async function getAllUsers(req: Request, res: Response): Promise<void> {
   const users = await userService.getAllUsers();
-  return res.json(users);
+  res.json(users);
 }
 
-export async function getUserById(req: Request, res: Response) {
+export async function getUserById(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const user = await userService.getUserById(id);
-  return res.json(user);
+  if (!user) {
+    throw new Error(errors.user.notFound.code);
+  }
+
+  res.json(user);
 }
 
-export async function createUser(req: Request, res: Response, next: NextFunction) {
-  try {
+export async function createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     const {
       firstName,
       lastName,
@@ -29,13 +33,10 @@ export async function createUser(req: Request, res: Response, next: NextFunction
       email,
       password,
     });
-    return res.json(user);
-  } catch (error) {
-    next(error);
-  }
+    res.json(user);
 }
 
-export async function updateUser(req: Request, res: Response) {
+export async function updateUser(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const {
     firstName,
@@ -44,7 +45,7 @@ export async function updateUser(req: Request, res: Response) {
     email,
     password,
   } = req.body;
-  
+
   const user = await userService.updateUser(id, {
     firstName,
     lastName,
@@ -52,11 +53,11 @@ export async function updateUser(req: Request, res: Response) {
     email,
     password,
   });
-  return res.json(user);
+  res.json(user);
 }
 
-export async function deleteUser(req: Request, res: Response) {
+export async function deleteUser(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const user = await userService.deleteUser(id);
-  return res.json(user);
+  res.json(user);
 }
