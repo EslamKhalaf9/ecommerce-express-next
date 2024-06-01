@@ -41,6 +41,30 @@ export const errors: Errors = {
       status: 401,
       code: 'auth/unauthorized'
     }
+  },
+  category: {
+    notFound: {
+      message: 'Category not found',
+      status: 404,
+      code: 'category/not-found'
+    },
+    notCreated: {
+      message: 'Category not created',
+      status: 500,
+      code: 'category/not-created'
+    }
+  },
+  product: {
+    notFound: {
+      message: 'Product not found',
+      status: 404,
+      code: 'product/not-found'
+    },
+    notCreated: {
+      message: 'Product not created',
+      status: 500,
+      code: 'product/not-created'
+    }
   }
 };
 

@@ -41,4 +41,7 @@ Content-Type: application/json
 ### Delete User
 DELETE http://localhost:3000/api/user/clwtg52x20000dheqwt0gv7ib
 
+### Get All Products
+GET http://localhost:3000/api/product
+
 
