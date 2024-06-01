@@ -1,10 +1,19 @@
+import { randomUUID } from 'crypto';
 import express from 'express';
 import session from 'express-session';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+
 import router from './routes';
 import { getErrorByCode } from './utils/errors';
-import { randomUUID } from 'crypto';
+
+dotenv.config();
 
 const app = express();
+app.use(morgan('dev'));
+app.use(helmet());
+
 app.use(express.json());
 
 app.use(session({
