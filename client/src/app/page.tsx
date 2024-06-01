@@ -1,5 +1,5 @@
 import Hero from "@/components/hero";
-import { Button } from "@/components/ui/button";
+import { ProductsGrid } from "@/components/component/products-grid";
 
 export default function Home() {
   return (
@@ -9,15 +9,7 @@ export default function Home() {
           <Hero />
         </div>
         <div className="container mx-auto">
-          <section className="py-8">
-            <h2 className="text-4xl font-bold">Welcome to Create Next App</h2>
-            <p className="text-lg mt-4">
-              Get started by editing <code>pages/index.tsx</code>
-            </p>
-            <Button>
-              Learn more
-            </Button>
-          </section>
+          <ProductsGrid />
         </div>
       </header>
     </main>
