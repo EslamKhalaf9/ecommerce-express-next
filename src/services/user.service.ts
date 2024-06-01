@@ -23,6 +23,7 @@ interface CreateUserDTO {
   username: string;
   email: string;
   password: string;
+  roleId: string;
 }
 
 interface UpdateUserDTO {
@@ -53,7 +54,8 @@ export async function createUser(data: CreateUserDTO): Promise<User> {
       lastName: data.lastName,
       username: data.username,
       email: data.email,
-      password: await bcrypt.hash(data.password, 10)
+      password: await bcrypt.hash(data.password, 10),
+      roleId: data.roleId,
     },
   });
 

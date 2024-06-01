@@ -1,4 +1,4 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as userService from '../services/user.service';
 import { errors } from '../utils/errors';
 
@@ -24,6 +24,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
       username,
       email,
       password,
+      roleId,
     } = req.body;
 
     const user = await userService.createUser({
@@ -32,6 +33,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
       username,
       email,
       password,
+      roleId,
     });
     res.json(user);
 }

@@ -11,7 +11,7 @@ Content-Type: application/json
   "lastName": "Doe",
   "username": "johndoe",
   "email": "johndoe@mail.com",
-  "password": "123456"
+  "password": "Admin123!"
 }
 
 ### Login User
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 {
   "email": "johndoe@mail.com",
-  "password": "123456"
+  "password": "Admin123!"
 }
 
 ### Logout User

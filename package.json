@@ -14,7 +14,11 @@
     "db:studio": "pnpm dlx prisma studio",
     "db:generate": "pnpm dlx prisma generate",
     "db:migrate": "pnpm dlx prisma migrate dev",
-    "db:push": "pnpm dlx prisma db push"
+    "db:push": "pnpm dlx prisma db push",
+    "db:seed": "pnpm dlx prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node src/utils/seed.ts"
   },
   "keywords": [],
   "author": "",
