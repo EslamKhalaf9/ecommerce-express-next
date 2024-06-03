@@ -14,8 +14,13 @@ function Navbar() {
           <li>
             <a href="/about">Products</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/contact">About</a>
+          </li> */}
+          <li>
+            <Link href='/login'>
+              Login
+            </Link>
           </li>
           <li>
             <Link href='/cart'>
