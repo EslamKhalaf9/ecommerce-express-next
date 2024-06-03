@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <main>
       <header>
-        <div className="pt-[10vh]">
+        <div>
           <Hero />
         </div>
         <div className="container mx-auto">

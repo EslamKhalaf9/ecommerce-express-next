@@ -26,7 +26,7 @@ export default function Hero() {
             <CarouselItem key={index}>
               <div className="h-[90vh] w-screen">
                 <Card>
-                  <CardContent className="w-screen h-[90vh] flex items-center justify-center p-0 m-0 bg-green-400 bg-center bg-cover bg-no-repeat"
+                  <CardContent className="w-screen h-[90vh] flex items-center justify-center p-0 m-0 bg-center bg-cover bg-no-repeat"
                     style={{
                       backgroundImage: `url(https://source.unsplash.com/random/800x600)`,
                     }}

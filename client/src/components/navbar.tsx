@@ -1,5 +1,6 @@
 import React from 'react'
 import Cart from './icons/cart'
+import Link from 'next/link'
 
 function Navbar() {
   return (
@@ -17,7 +18,9 @@ function Navbar() {
             <a href="/contact">About</a>
           </li>
           <li>
-            <Cart className='w-10 cursor-pointer' />
+            <Link href='/cart'>
+              <Cart className='w-10 cursor-pointer' />
+            </Link>
           </li>
         </ul>
       </div>
