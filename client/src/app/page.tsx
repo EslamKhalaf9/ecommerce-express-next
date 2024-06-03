@@ -1,7 +1,8 @@
 import Hero from "@/components/hero";
-import { ProductsGrid } from "@/components/component/products-grid";
+import { ProductsGrid } from "@/components/product/products-grid";
 
-export default function Home() {
+export default async function Home() {
+  const products = await (await fetch("http://localhost:3000/api/product")).json();
   return (
     <main>
       <header>
@@ -9,7 +10,7 @@ export default function Home() {
           <Hero />
         </div>
         <div className="container mx-auto">
-          <ProductsGrid />
+          <ProductsGrid products={products} />
         </div>
       </header>
     </main>
