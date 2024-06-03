@@ -4,6 +4,7 @@ import session from 'express-session';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import router from './routes';
 import { getErrorByCode } from './utils/errors';
@@ -13,6 +14,7 @@ dotenv.config();
 const app = express();
 app.use(morgan('dev'));
 app.use(helmet());
+app.use(cors());
 
 app.use(express.json());
 
@@ -21,6 +23,7 @@ app.use(session({
     path: '/',
     httpOnly: true,
     secure: false,
+    sameSite: false,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   },
   secret: process.env.SESSION_SECRET!,

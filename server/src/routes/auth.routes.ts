@@ -7,6 +7,7 @@ import { isAuthenticated } from '../middlewares/auth.middleware';
 const router = express.Router();
 
 router.post('/', asyncHandler(LoginController.login));
-router.post('/logout',isAuthenticated, asyncHandler(LoginController.logout));
+router.post('/logout', isAuthenticated, asyncHandler(LoginController.logout));
+router.get('/me', isAuthenticated, asyncHandler(LoginController.me));
 
 export default router;

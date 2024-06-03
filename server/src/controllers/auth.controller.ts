@@ -19,3 +19,7 @@ export const logout = async (req: Request, res: Response) => {
     res.json({ success: true });
   });
 }
+
+export const me = async (req: Request, res: Response) => {
+  res.json(req.session.user);
+}
