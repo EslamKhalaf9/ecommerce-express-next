@@ -1,19 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
-import Image from "next/image"
-import { Product } from "./product/products-grid"
+import { Product } from "../product/products-grid"
+import CartItem from "./cart-item"
+import { toast } from "../ui/use-toast"
+import { ToastAction } from "@radix-ui/react-toast"
 
-interface CartItem extends Product {
+export interface ICartItem extends Product {
   quantity: number
 }
 
 export default function Cart() {
-  const [cart, setCart] = useState<CartItem[]>([])
+  const [cart, setCart] = useState<ICartItem[]>([])
   
   useEffect(() => {
     const cart = localStorage.getItem("cart")
@@ -26,15 +27,31 @@ export default function Cart() {
   const handleRemoveItem = (id: number) => {
     try {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const updatedCart = cart.filter((item: CartItem) => item.id !== id);
+      const updatedCart = cart.filter((item: ICartItem) => item.id !== id);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       setCart(updatedCart);
+      toast({
+        title: "Removed from cart",
+        description: "Product removed from cart successfully",
+      })
     } catch (error) {
       console.error("Error removing item from cart", error);
     }
   }
   const handleQuantityChange = (id: number, quantity: number) => {
-    setCart(cart.map((item) => (item.id === id ? { ...item, quantity: quantity } : item)))
+    try {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const updatedCart = cart.map((item: ICartItem) => {
+        if (item.id === id) {
+          item.quantity = quantity;
+        }
+        return item;
+      });
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      setCart(updatedCart);
+    } catch (error) {
+      console.error("Error updating quantity", error);
+    }
   }
   const subtotal = cart.reduce((total, item) => total + item.price * item.quantity, 0)
   const taxes = subtotal * 0.16
@@ -47,26 +64,7 @@ export default function Cart() {
         </div>
         <div className="grid gap-6">
           {cart.map((item) => (
-            <div key={item.id} className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
-              <Image src="/placeholder.svg" alt={item.name} width={80} height={80} className="rounded-lg object-cover" />
-              <div>
-                <h3 className="font-medium">{item.name}</h3>
-                <p className="text-gray-500 dark:text-gray-400">${item.price.toFixed(2)}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Input
-                  type="number"
-                  min={1}
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                  className="w-16 text-center"
-                />
-                <Button variant="outline" size="icon" onClick={() => handleRemoveItem(item.id)}>
-                  <TrashIcon className="h-4 w-4" />
-                  <span className="sr-only">Remove</span>
-                </Button>
-              </div>
-            </div>
+            <CartItem key={item.id} item={item} handleQuantityChange={handleQuantityChange} handleRemoveItem={handleRemoveItem} />
           ))}
         </div>
         <Separator className="my-6" />
@@ -98,26 +96,5 @@ export default function Cart() {
         </div>
       </div>
     </div>
-  )
-}
-
-function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-    </svg>
   )
 }

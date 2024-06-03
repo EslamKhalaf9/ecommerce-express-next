@@ -6,9 +6,9 @@ export default async function Home() {
   return (
     <main>
       <header>
-        <div>
+        {/* <div>
           <Hero />
-        </div>
+        </div> */}
         <div className="container mx-auto">
           <ProductsGrid products={products} />
         </div>
